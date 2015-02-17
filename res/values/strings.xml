@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Splay</string>
+    <string name="select_file">Select File</string>
+    <string name="sleep_timer">Sleep Timer</string>
+    <string name="exit">Exit</string>
+    <string name="help">Help</string>
+    <string name="playPause">Play</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="sleep">Sleep</string>
+    <string name="title_file_selector">FileSelector</string>
+    <string name="forwardButton">&gt;&gt;</string>
+    <string name="backwardButton">&lt;&lt;</string>
+    <string name="volumeBoost">boost volume</string>
+</resources>
