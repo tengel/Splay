@@ -20,6 +20,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import java.util.Collections;
 import android.util.Log;
+import android.widget.Toast;
+import android.widget.CheckBox;
 
 public class FileSelector extends ListActivity
 {
@@ -143,6 +145,8 @@ public class FileSelector extends ListActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_selector);
+        CheckBox enableCb = (CheckBox) findViewById(R.id.enable_checkbox);
+        enableCb.setVisibility(View.GONE);
         m_myPath = (TextView)findViewById(R.id.path);
         m_prefs = getSharedPreferences("fileselector_prefs", 0);
 
@@ -222,12 +226,30 @@ public class FileSelector extends ListActivity
         {
             try
             {
-                Player.instance().setFile(file);
+                if (Playlist.instance().isEnabled())
+                {
+                    Playlist.instance().addFile(file);
+                    Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        file.toString() + " added to playlist",
+                        Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else
+                {
+                    Player.instance().setFile(file);
+                    Player.instance().start();
+                    Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "playing " + file.toString(),
+                        Toast.LENGTH_LONG);
+                    toast.show();
+                    finish();
+                }
             }
             catch (Exception e)
             {
             }
-            finish();
         }
     }
 

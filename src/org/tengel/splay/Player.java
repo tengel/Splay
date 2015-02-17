@@ -113,6 +113,11 @@ public class Player
         return m_state == PlayerState.PLAYING;
     }
 
+    public boolean isCompleted()
+    {
+        return m_state == PlayerState.PLAYING && !m_player.isPlaying();
+    }
+
     public boolean isIdle()
     {
         return m_state == PlayerState.IDLE;

@@ -1,23 +1,41 @@
 package org.tengel.splay;
 
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 enum TimerState {STOPPED, RUNNING, ELAPSED}
 
 public class SleepTimer
 {
-    int        m_sleepTime = 0;
-    TimerState m_state = TimerState.STOPPED;
+    int                         m_sleepTime = 0; // in seconds
+    TimerState                  m_state = TimerState.STOPPED;
+    ScheduledThreadPoolExecutor m_executor;
+
+
+    class SleepTimerTask implements Runnable
+    {
+        @Override
+        public void run()
+        {
+            tick();
+        }
+    }
+
 
     public void start()
     {
-        m_sleepTime = (m_sleepTime + 6000) % 36000;
-        if (m_state == TimerState.RUNNING)
+        m_sleepTime = (m_sleepTime + 600) % 3600;
+        if (m_state != TimerState.RUNNING)
         {
-            return;
+            m_state = TimerState.RUNNING;
+            m_executor = new ScheduledThreadPoolExecutor(1);
+            m_executor.scheduleAtFixedRate(new SleepTimerTask(), 0, 1,
+                                           TimeUnit.SECONDS);
         }
-        m_state = TimerState.RUNNING;
     }
 
-    public void tick()
+
+    private void tick()
     {
         if (m_state == TimerState.RUNNING && m_sleepTime > 0)
         {
@@ -26,8 +44,10 @@ public class SleepTimer
         if (m_state == TimerState.RUNNING && m_sleepTime == 0)
         {
             m_state = TimerState.ELAPSED;
+            m_executor.shutdown();
         }
     }
+
 
     public boolean isElapsed()
     {
@@ -39,8 +59,9 @@ public class SleepTimer
         return false;
     }
 
+
     public String getTimeLeft()
     {
-        return Util.msToStr(m_sleepTime * 100);
+        return Util.msToStr(m_sleepTime * 1000);
     }
 }

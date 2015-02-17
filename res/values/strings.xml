@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Splay</string>
     <string name="select_file">Select File</string>
+    <string name="playlist">Playlist</string>
     <string name="sleep_timer">Sleep Timer</string>
     <string name="exit">Exit</string>
     <string name="help">Help</string>
@@ -13,4 +14,5 @@
     <string name="forwardButton">&gt;&gt;</string>
     <string name="backwardButton">&lt;&lt;</string>
     <string name="volumeBoost">boost volume</string>
+    <string name="enable">enable playlist</string>
 </resources>

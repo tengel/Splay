@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 
 public class Splay extends Activity
 {
@@ -53,7 +55,7 @@ public class Splay extends Activity
                               Player.instance().getCurrentPosition());
                     ed.commit();
 
-                    m_timer.tick();
+                    Playlist.instance().timer();
                     updateUi();
                     if (m_timer.isElapsed())
                     {
@@ -139,7 +141,7 @@ public class Splay extends Activity
         catch (Exception e)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("geht nicht " + e.toString() +
+            builder.setMessage("Exception occured: " + e.toString() +
                                e.getStackTrace()[0].toString());
             builder.create().show();
 
@@ -156,7 +158,7 @@ public class Splay extends Activity
         catch (Exception e)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("geht nicht " + e.toString() +
+            builder.setMessage("Exception occured: " + e.toString() +
                                e.getStackTrace()[0].toString());
             builder.create().show();
         }
@@ -169,6 +171,12 @@ public class Splay extends Activity
         if (id == R.id.select_file)
         {
             Intent intent = new Intent(this, FileSelector.class);
+            startActivity(intent);
+            updateUi();
+        }
+        else if (id == R.id.show_playlist)
+        {
+            Intent intent = new Intent(this, PlaylistActivity.class);
             startActivity(intent);
             updateUi();
         }

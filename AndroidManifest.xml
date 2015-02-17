@@ -12,13 +12,17 @@
             </intent-filter>
         </activity>
 
-        <activity
-        android:name=".FileSelector"
-        android:label="@string/title_file_selector" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="org.tengel.splay.Splay" />
-    </activity>
+        <activity android:name=".FileSelector"
+                  android:label="@string/title_file_selector" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value="org.tengel.splay.Splay" />
+        </activity>
+
+        <activity android:name=".PlaylistActivity"
+                  android:label="@string/playlist" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value="org.tengel.splay.Splay" />
+        </activity>
 
     </application>
 </manifest>
